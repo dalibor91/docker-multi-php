@@ -1,0 +1,45 @@
+FROM debian:9 
+
+MAINTAINER Dalibor Menkovic <dalibor.menkovic@gmail.com>
+
+ADD config /opt/config
+
+RUN apt-get update && \
+    apt-get install -y \
+    locales \
+    apt-transport-https \
+    lsb-release \
+    ca-certificates \
+    gpg \
+    vim \
+    curl \
+    wget \
+    apache2 \
+    git \
+    zip \
+    unzip \
+    screen \
+    whois \
+    nfs-client \
+    python-pip \
+    python-yaml \
+    locales 
+
+RUN apt-get install -y \
+    php php-common php-cli php-mysql \
+    php-pear php-dev php-gd php-memcached \
+    php-gettext php-xml php-zip \
+    libapache2-mod-php php-curl \
+    php-intl php-imagick php-mbstring php-mongodb php-json php-log
+
+RUN php -r " file_put_contents('cs.php', file_get_contents('https://getcomposer.org/installer')); if (hash_file('SHA384', 'cs.php') !== trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Corupted'.PHP_EOL; unlink('cs.php'); } " && \
+    php cs.php --install-dir=/usr/local/bin --filename=composer  && \
+    rm cs.php
+    
+RUN a2enmod rewrite && \
+    pip install jinja && \
+    python /opt/config/scripts/hosts.py 7
+
+EXPOSE 80
+
+CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
