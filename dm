@@ -48,8 +48,8 @@ then
       done
       
       cmd="docker run -it -d --name ${container_name} --hostname ${host_name}"
-      for p in "${ports}"; do cmd="${cmd} -p ${p}"; done;
-      for s in "${share}"; do cmd="${cmd} -v ${s}"; done;
+      for p in ${ports}; do cmd="${cmd} -p ${p}"; done;
+      for s in ${share}; do cmd="${cmd} -v ${s}"; done;
       if [ ! "${network}" = "" ]; then cmd="${cmd} --network ${network}"; fi;
       cmd="${cmd} apache2/php5.6"
 
