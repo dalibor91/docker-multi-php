@@ -35,7 +35,10 @@ then
       echo "Enter ports (If empty '8881:80')"
       read ports
       if [ "$ports" = "" ]; then ports="8881:80"; fi     
-      
+     
+      echo "Enter network (you can leave it empty)"
+      read network
+
       share=""
       for dir in $(ls "${APP_DIR}/apps/5.6");
       do 
@@ -47,6 +50,7 @@ then
       cmd="docker run -it -d --name ${container_name} --hostname ${host_name}"
       for p in "${ports}"; do cmd="${cmd} -p ${p}"; done;
       for s in "${share}"; do cmd="${cmd} -v ${s}"; done;
+      if [ ! "${network}" = "" ]; then cmd="${cmd} --network ${network}"; fi;
       cmd="${cmd} apache2/php5.6"
 
       eval "$cmd"
