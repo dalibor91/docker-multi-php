@@ -9,7 +9,11 @@ then
     docker build -t apache2/php7 -f Dockerfile-7 .
   elif [ "$2" = '5.6' ];
   then
-    docker build -t apache2/php5.6 -f Dockerfile-5.6 .
+    echo "Enter container image (If empty 'apache2/php5.6')"
+    read container_image
+    if [ "$container_image" = "" ]; then container_image="apache2/php5.6"; fi
+
+    docker build -t "$container_image" -f Dockerfile-5.6 .
   else 
     echo "Please specify version"
   fi
@@ -24,6 +28,10 @@ then
       apache2/php7
   elif [ "$2" = '5.6' ];
   then
+      echo "Enter container image (If empty 'apache2/php5.6')"
+      read container_image
+      if [ "$container_image" = "" ]; then container_image="apache2/php5.6"; fi
+
       echo "Enter container name (If empty 'apache2/php5.6')"
       read container_name
       if [ "$container_name" = "" ]; then container_name="apache2/php5.6"; fi
@@ -51,7 +59,7 @@ then
       for p in ${ports}; do cmd="${cmd} -p ${p}"; done;
       for s in ${share}; do cmd="${cmd} -v ${s}"; done;
       if [ ! "${network}" = "" ]; then cmd="${cmd} --network ${network}"; fi;
-      cmd="${cmd} apache2/php5.6"
+      cmd="${cmd} ${container_image}"
 
       eval "$cmd"
       #echo "$cmd"
