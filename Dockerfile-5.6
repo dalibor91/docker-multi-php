@@ -43,6 +43,11 @@ RUN a2enmod rewrite && \
     pip install jinja && \
     python /opt/config/scripts/hosts.py 5.6
 
+RUN adduser --disabled-password --gecos '' --uid 1005 apache-user
+
+ADD config/php/5.6/php.ini /etc/php/5.6/apache2/php.ini
+ADD config/apache/5.6/envvars /etc/apache2/envvars
+
 EXPOSE 80
 
 CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
