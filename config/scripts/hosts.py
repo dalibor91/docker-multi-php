@@ -22,7 +22,6 @@ with open("%s/hosts.yml" % APP_ROOT) as yml:
         tpl = t.read()
 
     for domain, server_data in load(yml.read()).items():
-
         if ('version' in server_data) and (server_data['version'] != APP_VERS):
             continue
 
