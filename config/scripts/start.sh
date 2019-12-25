@@ -2,20 +2,13 @@
 
 service=$(which service)
 
-# This script is used to start everything
-$service ssh status > /dev/null 2>&1
-if [ $? -eq 0 ];
-then
-    $service ssh start;
-    echo "SSH service started..."
-fi
+cron_location="/opt/config/cron/`cat /opt/version`"
+for file in $(ls "$cron_location");
+do
+    cat "${cron_location}/${file}" > "/etc/cron.d/${file}"
+done
 
-$service cron status > /dev/null 2>&1
-if [ $? -eq 0 ];
-then
-    $service cron start;
-    echo "Cron started..."
-fi
+$service cron start;
 
 # Build hosts files
 python /opt/config/scripts/hosts.py $(cat /opt/version)
