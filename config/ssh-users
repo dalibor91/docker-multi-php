@@ -1,0 +1,5 @@
+# container name    directory                       user:pass:uidandgid     ports       network name
+ssh_container_1     5.6/test                        user:userpass:1005      2222:22     bridge
+ssh_container_2     7/test                          user:userpass:1005      2223:22     bridge
+ssh_container_3     7.2/test                        user:userpass:1005      2224:22     bridge
+ssh_container_4     5.6/test;7/test;7.2/test        user:userpass:1005      2225:22     bridge

@@ -2,6 +2,8 @@
 
 Multiple versions of php in containers
 
+Users use 1005 uid and gid
+
 Building all
 
 ```sh
@@ -17,3 +19,9 @@ To add aditional hosts just update
 `config/hosts.yml`
 
 
+Also ssh access for apps , see `config/ssh-users` for setup user access there
+```sh
+bin/setup_ssh.sh
+```
+
+to setup ssh containers with users
