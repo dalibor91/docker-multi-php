@@ -25,3 +25,5 @@ bin/setup_ssh.sh
 ```
 
 to setup ssh containers with users
+
+Cron files are in `config/cron`
