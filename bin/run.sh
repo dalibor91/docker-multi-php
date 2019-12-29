@@ -13,15 +13,21 @@ function get_shares() {
 }
 
 function get_args() {
-    cat "${APP_DIR}/config/args/args-${1}"
+    if [ "${ARGS_FILE}" = "" ];
+    then
+        ARGS_FILE="args-${1}"
+    else
+        log "ARGS_FILE=${ARGS_FILE}"
+    fi
+    cat "${APP_DIR}/config/args/${ARGS_FILE}"
 }
 
 if [ "$1" = "5.6" ];
 then
     run_cmd "docker run `get_args 5.6` `get_shares 5.6` -d php-multi-5.6"
-elif [ "$1" = "7" ]
+elif [ "$1" = "7.0" ]
 then
-    run_cmd "docker run `get_args 7` `get_shares 7` -d php-multi-7"
+    run_cmd "docker run `get_args 7.0` `get_shares 7.0` -d php-multi-7.0"
 elif [ "$1" = "7.2" ]
 then
     run_cmd "docker run `get_args 7.2` `get_shares 7.2` -d php-multi-7.2"

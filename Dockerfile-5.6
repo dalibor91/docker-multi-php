@@ -9,16 +9,11 @@ RUN apt-get update && \
     lsb-release \
     ca-certificates \
     gpg \
-    #vim \
     curl \
     wget \
     apache2 \
-    #git \
     zip \
     unzip \
-    #screen \
-    #whois \
-    #nfs-client \
     python-pip \
     python-yaml \
     locales \
@@ -44,7 +39,6 @@ RUN a2enmod rewrite && \
 
 RUN adduser --disabled-password --gecos '' --uid 1005 apache-user && groupmod -g 1005 apache-user
 RUN echo "5.6" > /opt/version
-RUN echo '<!-- 5.6 -->' >> /var/www/html/index.html
 
 ADD config/php/5.6/php.ini /etc/php/5.6/apache2/php.ini
 ADD config/apache/5.6/envvars /etc/apache2/envvars

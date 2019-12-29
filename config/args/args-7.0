@@ -1,0 +1,1 @@
+-p 8870:80 --name php-multi-7.0 --hostname phpmulti70 --network bridge

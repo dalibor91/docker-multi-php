@@ -11,15 +11,11 @@ RUN apt-get update && \
     lsb-release \
     ca-certificates \
     gpg \
-    #vim \
     curl \
     wget \
     apache2 \
-    #git \
     zip \
     unzip \
-    #screen \
-    #whois \
     nfs-client \
     python-pip \
     python-yaml \
@@ -45,7 +41,6 @@ RUN a2enmod rewrite && \
     pip install jinja
 
 RUN adduser --disabled-password --gecos '' --uid 1005 apache-user && groupmod -g 1005 apache-user
-RUN echo '<!-- 7.2 -->' >> /var/www/html/index.html
 
 ADD config/apache/7.2/envvars /etc/apache2/envvars
 ADD config/scripts/start.sh /bin/start_services.sh

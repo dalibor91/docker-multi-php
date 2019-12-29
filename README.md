@@ -13,6 +13,8 @@ bin/build.sh
 Runing
 ```sh
 bin/run.sh [5.6|7|7.2]
+
+ARGS_FILE=custom-file bin/run 5.6
 ```
 
 To add aditional hosts just update

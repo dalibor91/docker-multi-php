@@ -17,7 +17,9 @@ do
     directories=""
     for dir in ${directory//;/ };
     do
-        directories="-v ${APP_DIR}/apps/${dir}:/srv/${dir} ${directories}"
+        local_dir=$(echo $dir | awk -F: '{ print $1 }')
+        container_dir=$(echo $dir | awk -F: '{ print $2 }')
+        directories="-v ${APP_DIR}/apps/${local_dir}:${container_dir} ${directories}"
     done
 
     container_id="`docker ps -q -f name=${container}`"
