@@ -3,8 +3,18 @@
     ServerAlias www.{{ server_name }}
     ServerAdmin admin@{{ server_name }}
 
+    Alias /___error /var/www/html/error
+
     DocumentRoot {{ data['documentRoot'] }}
     <Directory {{ data['documentRoot'] }}>
+        ErrorDocument 400 /___error/index.html
+        ErrorDocument 401 /___error/index.html
+        ErrorDocument 403 /___error/index.html
+        ErrorDocument 404 /___error/index.html
+        ErrorDocument 500 /___error/index.html
+        ErrorDocument 502 /___error/index.html
+        ErrorDocument 503 /___error/index.html
+
         Options FollowSymLinks MultiViews
         AllowOverride All
         Require all granted

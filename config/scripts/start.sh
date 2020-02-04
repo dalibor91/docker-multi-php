@@ -23,6 +23,12 @@ cat "/opt/config/php/${VERSION}/php.ini" > "/etc/php/${VERSION}/apache2/php.ini"
 rm /var/www/html/index.html
 
 wget https://assets.dalibor.me/nginx_pages/server.html -O /var/www/html/index.html
+
+if ! [ -d /var/www/html/error ]; then
+    mkdir /var/www/html/error
+fi
+
+wget https://assets.dalibor.me/nginx_pages/error.html -O /var/www/html/error/index.html
 echo -e "<!-- \n> V: ${VERSION}\n> H: `hostname` \n> T: `date` \n-->" >> /var/www/html/index.html
 
 # start apache
