@@ -1,0 +1,2 @@
+* * * * *   root echo "[`date`] ping" >> /tmp/ping.log
+0 0 * * *   root echo "" > /tmp/ping.log
