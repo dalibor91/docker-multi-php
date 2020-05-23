@@ -41,6 +41,8 @@ RUN php -r " file_put_contents('cs.php', file_get_contents('https://getcomposer.
     rm cs.php
     
 RUN a2enmod rewrite && \
+    a2enmod headers && \
+    a2enmod expires && \
     pip install jinja && \
     python /opt/config/scripts/hosts.py 7.2
 
