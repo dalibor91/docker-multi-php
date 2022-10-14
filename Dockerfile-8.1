@@ -42,9 +42,13 @@ RUN php -r " file_put_contents('cs.php', file_get_contents('https://getcomposer.
 RUN a2enmod rewrite && \
     a2enmod headers && \
     a2enmod expires && \
-    pip install jinja && \
-    python /opt/config/scripts/hosts.py 8.1
+    pip install jinja 
+
+RUN adduser --disabled-password --gecos '' --uid 1005 apache-user && groupmod -g 1005 apache-user
+
+ADD config/apache/7.4/envvars /etc/apache2/envvars
+ADD config/scripts/start.sh /bin/start_services.sh
 
 EXPOSE 80
 
-CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
+CMD ["/bin/bash","/bin/start_services.sh"]
