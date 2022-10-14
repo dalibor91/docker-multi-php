@@ -37,6 +37,9 @@ then
 elif [ "$1" = "7.4" ]
 then
     run_cmd "docker run `get_args 7.4` `get_shares 7.4` -d php-multi-7.4"
+elif [ "$1" = "8.1" ]
+then
+    run_cmd "docker run `get_args 8.1` `get_shares 8.1` -d php-multi-8.1"
 else
     echo "Unknown version"
 fi
