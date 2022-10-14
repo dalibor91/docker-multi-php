@@ -1,8 +1,8 @@
-FROM debian:10
+FROM debian:9
 
 MAINTAINER Dalibor Menkovic <dalibor.menkovic@gmail.com>
 
-ADD config /opt/config
+RUN echo "8.1" > /opt/version
 
 RUN apt-get update && \
     apt-get install -y \
@@ -11,23 +11,19 @@ RUN apt-get update && \
     lsb-release \
     ca-certificates \
     gpg \
-    vim \
     curl \
     wget \
     apache2 \
-    git \
     zip \
     unzip \
-    screen \
-    whois \
     nfs-client \
     python-pip \
     python-yaml \
-    locales
+    locales \
+    cron
 
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" >> /etc/apt/sources.list.d/php.list
-
 
 RUN apt-get update && \
     apt-get install -y \
@@ -38,11 +34,9 @@ RUN apt-get update && \
 RUN php -r " file_put_contents('cs.php', file_get_contents('https://getcomposer.org/installer')); if (hash_file('SHA384', 'cs.php') !== trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Corupted'.PHP_EOL; unlink('cs.php'); } " && \
     php cs.php --install-dir=/usr/local/bin --filename=composer  && \
     rm cs.php
-    
+
 RUN a2enmod rewrite && \
-    a2enmod headers && \
-    a2enmod expires && \
-    pip install jinja 
+    pip install jinja
 
 RUN adduser --disabled-password --gecos '' --uid 1005 apache-user && groupmod -g 1005 apache-user
 
