@@ -7,6 +7,11 @@ function log() {
 }
 
 function run_cmd() {
-    log "$@"
-    eval "$@"
+    local cmd_running=$@
+    log "${cmd_running}"
+    eval "${cmd_running}"
+    if ! [ $? -eq 0 ];
+    then 
+        echo "Command failed: '${cmd_running}'"
+    fi
 }
