@@ -1,0 +1,36 @@
+#!/bin/bash
+
+. ./bin/_helper.sh
+
+function get_shares() {
+    local share="-v ${APP_DIR}/config:/opt/config"
+    for dir in $(ls "${APP_DIR}/apps/${1}");
+    do
+      share="${share} -v ${APP_DIR}/apps/${1}/${dir}:/var/www/apps/${dir}";
+    done
+
+    echo $share
+}
+
+function get_args() {
+    if [ "${ARGS_FILE}" = "" ];
+    then
+        ARGS_FILE="args-${1}"
+    else
+        log "ARGS_FILE=${ARGS_FILE}"
+    fi
+    cat "${APP_DIR}/config/args/${ARGS_FILE}"
+}
+
+build_version=${1:-"8.2"}
+echo "Version ${build_version}"
+if ! [ -f "${APP_DIR}/docker/Dockerfile-${build_version}" ];
+then
+    echo "Unknown version"
+    exit 1;
+fi
+
+_args=$(get_args $build_version)
+_shares=$(get_shares $build_version)
+
+run_cmd "docker run ${_args} ${_shares} -d php-multi-${build_version}"

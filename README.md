@@ -39,19 +39,3 @@ to setup ssh containers with users
 
 Cron files are in `config/cron`
 
-## Docker-compose 
-To test with docker-compose run 
-```bash 
-VERSION=8.1 docker-compose run --service-ports app
-```
-
-Then inside container 
-```bash
-chown apache-user /var/www/apps/test
-
-su - apache-user
-
-cd /var/www/apps/test
-
-composer create-project --prefer-dist laravel/lumen .
-```
