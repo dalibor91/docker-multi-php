@@ -9,6 +9,7 @@ Versions supported
 - 7.3
 - 7.4
 - 8.1
+- 8.2
 
 Users use 1005 uid and gid
 
