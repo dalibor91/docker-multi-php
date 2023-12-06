@@ -15,5 +15,5 @@ then
     run_cmd 'docker build -t "php-multi-8.2" -f "docker/Dockerfile-8.2" .'
     run_cmd 'docker build -t "php-multi-ssh" -f "docker/Dockerfile-ssh" .'
 else 
-    run_cmd "docker build -t "php-multi-ssh" -f "docker/Dockerfile-${build_version}" ."
+    run_cmd "docker build -t \"php-multi-${build_version}\" -f \"docker/Dockerfile-${build_version}\" ."
 fi
