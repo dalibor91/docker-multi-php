@@ -1,3 +1,5 @@
+Please use [/dalibor91/docker-apache2-php](https://github.com/dalibor91/docker-apache2-php) which is simplified and upgraded version of this repo
+
 # docker-multi-php
 
 Multiple versions of php in containers
